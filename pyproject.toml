@@ -1,0 +1,76 @@
+[build-system]
+requires = ["hatchling>=1.25"]
+build-backend = "hatchling.build"
+
+[project]
+name = "agentproof-otel"
+version = "0.1.0"
+description = "Offline OpenTelemetry trace ingestion and deterministic AgentProof workflow normalization."
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "Apache-2.0" }
+authors = [{ name = "Kingsley Okafor" }]
+keywords = ["ai-agents", "agent-security", "opentelemetry", "otlp", "workflow-security"]
+classifiers = [
+  "Development Status :: 2 - Pre-Alpha",
+  "Intended Audience :: Developers",
+  "License :: OSI Approved :: Apache Software License",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3 :: Only",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Programming Language :: Python :: 3.13",
+  "Topic :: Security",
+  "Typing :: Typed",
+]
+dependencies = ["agentproof-core>=0.1.0,<0.2.0"]
+
+[project.optional-dependencies]
+dev = ["build>=1.2", "mypy>=1.11", "pytest>=8.3", "pytest-cov>=5.0", "ruff>=0.6", "twine>=5.1"]
+
+[project.scripts]
+agentproof-otel = "agentproof_otel.cli:main"
+
+[project.urls]
+Homepage = "https://github.com/kingsokafor777-droid/agentproof-otel"
+Documentation = "https://github.com/kingsokafor777-droid/agentproof-otel/tree/main/docs"
+Issues = "https://github.com/kingsokafor777-droid/agentproof-otel/issues"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/agentproof_otel"]
+
+[tool.pytest.ini_options]
+addopts = "--strict-markers --cov=agentproof_otel --cov-branch --cov-report=term-missing --cov-fail-under=95"
+testpaths = ["tests"]
+
+[tool.coverage.run]
+branch = true
+source = ["agentproof_otel"]
+
+[tool.coverage.report]
+show_missing = true
+skip_covered = false
+
+[tool.ruff]
+target-version = "py310"
+line-length = 100
+src = ["src", "tests"]
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "N", "UP", "B", "C4", "SIM", "RUF"]
+
+[tool.ruff.lint.isort]
+known-first-party = ["agentproof_otel"]
+
+[tool.mypy]
+python_version = "3.10"
+strict = true
+warn_unreachable = true
+pretty = true
+mypy_path = "src"
+files = ["src"]
+
+[[tool.mypy.overrides]]
+module = ["tests.*"]
+disallow_untyped_defs = false

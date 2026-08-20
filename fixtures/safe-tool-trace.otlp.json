@@ -1,0 +1,57 @@
+{
+  "resourceSpans": [
+    {
+      "resource": {
+        "attributes": [
+          {"key": "service.name", "value": {"stringValue": "Support Agent"}},
+          {"key": "service.version", "value": {"stringValue": "1.4.0"}}
+        ]
+      },
+      "scopeSpans": [
+        {
+          "scope": {"name": "example.agent.instrumentation"},
+          "spans": [
+            {
+              "traceId": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+              "spanId": "0000000000000001",
+              "name": "chat completion",
+              "startTimeUnixNano": "1710000000000000000",
+              "attributes": [
+                {"key": "gen_ai.input.messages", "value": {"stringValue": "secret prompt"}}
+              ]
+            },
+            {
+              "traceId": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+              "spanId": "0000000000000002",
+              "name": "read ticket",
+              "startTimeUnixNano": "1710000000000001000",
+              "attributes": [
+                {"key": "gen_ai.tool.name", "value": {"stringValue": "Get Ticket"}},
+                {"key": "agentproof.actor.id", "value": {"stringValue": "agent.support"}},
+                {"key": "agentproof.actor.kind", "value": {"stringValue": "agent"}},
+                {"key": "agentproof.side_effect", "value": {"stringValue": "read"}},
+                {"key": "agentproof.requested_capabilities", "value": {"arrayValue": {"values": [{"stringValue": "ticket.read"}]}}},
+                {"key": "agentproof.input_labels", "value": {"arrayValue": {"values": [{"stringValue": "internal"}]}}},
+                {"key": "gen_ai.tool.call.arguments", "value": {"stringValue": "must-not-copy"}}
+              ]
+            },
+            {
+              "traceId": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+              "spanId": "0000000000000003",
+              "parentSpanId": "0000000000000002",
+              "name": "write note",
+              "startTimeUnixNano": "1710000000000002000",
+              "status": {"code": 2},
+              "attributes": [
+                {"key": "agentproof.tool.name", "value": {"stringValue": "Add Private Note"}},
+                {"key": "agentproof.side_effect", "value": {"stringValue": "write"}},
+                {"key": "agentproof.output_labels", "value": {"arrayValue": {"values": [{"stringValue": "confidential"}]}}},
+                {"key": "gen_ai.tool.call.result", "value": {"stringValue": "must-not-copy"}}
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
